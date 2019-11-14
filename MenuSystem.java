@@ -27,7 +27,7 @@ public class MenuSystem{
         "\n[2] Object that contains references to other Objects" + 
         "\n[3] Object with array of primatives" +
         "\n[4] Object that contains an array of object references" +
-        "\n[5] Create an ArrayList" +
+        "\n[5] Create an ArrayList and add onto it" +
         "\n[S] Send" + 
         "\n[Q] Quit" +
         "\n---------------------------------" +
@@ -52,7 +52,30 @@ public class MenuSystem{
         else if (userInput.equalsIgnoreCase("4"))
             fourthOption();
         else if (userInput.equalsIgnoreCase("5"))
-            System.out.println("5");
+            fifthOption();
+    }
+
+    private void fifthOption(){
+        ObjectE e = oCreator.createObjectE();
+        fifthOptionDisplayQuitText();
+        while(true){
+            fifthOptionDisplayCreateObject();
+            String in = input.nextLine();
+
+            if(in.equalsIgnoreCase("d"))
+                break;
+            else
+                oCreator.addObjectEValue(e, in);
+        }
+        createdObjMsg();
+    }
+
+    private void fifthOptionDisplayCreateObject(){
+        System.out.print("\nCreate ObjectA to add to this arraylist: ");
+    }
+
+    private void fifthOptionDisplayQuitText(){
+        System.out.println("Note: Type in [D] to finish adding ObjectA's to the array");
     }
 
     private void fourthOption(){
@@ -63,26 +86,18 @@ public class MenuSystem{
             return;
         }
 
-        fourthOptionDisplayPossibleValues();
-        
         for(int i = 0; i < d.array.length; i++){
-            fourthOptionDisplayArrayValue(i);
+            fourthOptionCreateObject(i);
             if(!oCreator.setObjectDValue(d, i, input.nextLine())){
-                objErrorMsg();
+                System.out.println("Object was incorrectly created");
             }
         }
         createdObjMsg();
+
     }
     
-    private void fourthOptionDisplayArrayValue(int index){
-        System.out.print("\nSet the array ObjectA index value at index " + index + ": ");
-    }
-
-    private void fourthOptionDisplayPossibleValues(){
-        System.out.println("Displaying possible ObjectA values for array: ");
-        for(int i = 0; i < oCreator.listOfObjA.size(); i++){
-            System.out.println("- ObjectA[" + i + "]");
-        }
+    private void fourthOptionCreateObject(int index){
+        System.out.print("\nCreate ObjectA for the index value " + index + ": ");
     }
 
     private void fourthOptionDisplayArrayLength(){

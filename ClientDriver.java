@@ -5,6 +5,9 @@ public class ClientDriver{
         MenuSystem menu = new MenuSystem(oCreator);
         menu.start();
         
-        //System.out.println(String.join(" ", oCreator.listOfObjC.get(0).array));
+        Serializer s = new Serializer(oCreator);
+
+        //send 
+
     }
 }

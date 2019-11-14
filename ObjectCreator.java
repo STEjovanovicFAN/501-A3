@@ -6,12 +6,14 @@ public class ObjectCreator{
     public ArrayList<ObjectB> listOfObjB;
     public ArrayList<ObjectC> listOfObjC;
     public ArrayList<ObjectD> listOfObjD;
+    public ArrayList<ObjectE> listOfObjE;
 
     public ObjectCreator(){
         listOfObjA = new ArrayList<ObjectA>();
         listOfObjB = new ArrayList<ObjectB>();
         listOfObjC = new ArrayList<ObjectC>();
         listOfObjD = new ArrayList<ObjectD>();
+        listOfObjE = new ArrayList<ObjectE>();
     }
 
     public boolean createObjectA(String name){
@@ -79,20 +81,23 @@ public class ObjectCreator{
         return d;
     }
 
-    public boolean setObjectDValue(ObjectD d, int index, String aIndexInput){
-        int aIndex;
-        try{
-            aIndex = Integer.parseInt(aIndexInput);
-        }
-        catch(Exception e){
-            return false;
-        }
+    public boolean setObjectDValue(ObjectD d, int index, String aObjectName){
+        createObjectA(aObjectName);
 
-        if(aIndex >= listOfObjA.size()){
-            return false;
-        }
-
-        d.array[index] = listOfObjA.get(aIndex);
+        d.array[index] = listOfObjA.get(listOfObjA.size() -1);
         return true;
     }
+
+    public ObjectE createObjectE(){
+        ObjectE e = new ObjectE();
+        listOfObjE.add(e);
+        return e;
+    }
+
+    public boolean addObjectEValue(ObjectE e, String aObjectVal){
+        createObjectA(aObjectVal);
+        e.addObjectA(listOfObjA.get(listOfObjA.size()-1));
+        return true;
+    }
+
 }
