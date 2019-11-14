@@ -48,11 +48,70 @@ public class MenuSystem{
         else if (userInput.equalsIgnoreCase("2"))
             secondOption();
         else if (userInput.equalsIgnoreCase("3"))
-            System.out.println("3");
+            thirdOption();
         else if (userInput.equalsIgnoreCase("4"))
-            System.out.println("4");
+            fourthOption();
         else if (userInput.equalsIgnoreCase("5"))
             System.out.println("5");
+    }
+
+    private void fourthOption(){
+        fourthOptionDisplayArrayLength();
+        ObjectD d = oCreator.createObjectD(input.nextLine());
+        if(d == null){
+            objErrorMsg();
+            return;
+        }
+
+        fourthOptionDisplayPossibleValues();
+        
+        for(int i = 0; i < d.array.length; i++){
+            fourthOptionDisplayArrayValue(i);
+            if(!oCreator.setObjectDValue(d, i, input.nextLine())){
+                objErrorMsg();
+            }
+        }
+        createdObjMsg();
+    }
+    
+    private void fourthOptionDisplayArrayValue(int index){
+        System.out.print("\nSet the array ObjectA index value at index " + index + ": ");
+    }
+
+    private void fourthOptionDisplayPossibleValues(){
+        System.out.println("Displaying possible ObjectA values for array: ");
+        for(int i = 0; i < oCreator.listOfObjA.size(); i++){
+            System.out.println("- ObjectA[" + i + "]");
+        }
+    }
+
+    private void fourthOptionDisplayArrayLength(){
+        System.out.print("\nSet the array length for this object: ");
+    }
+
+    private void thirdOption(){
+        thirdOptionDisplayArrayLength();
+        ObjectC c = oCreator.createObjectC(input.nextLine());
+        if(c == null){
+            objErrorMsg();
+            return;
+        }
+
+        for(int i = 0; i < c.array.length; i++){
+            thirdOptionDisplayArrayValue(i);
+            if(!oCreator.setObjectCValue(c, i, input.nextLine())){
+                objErrorMsg();
+            }
+        }
+        createdObjMsg();
+    }
+
+    private void thirdOptionDisplayArrayLength(){
+        System.out.print("\nSet the array length for this object: ");
+    }
+
+    private void thirdOptionDisplayArrayValue(int index){
+        System.out.print("\nSet the array value at index " + index + ": ");
     }
 
     private void secondOption(){
@@ -87,7 +146,7 @@ public class MenuSystem{
     }
     
     private void firstOptionDisplay(){
-        System.out.print("\n\nSet the value \"name\" for this object: ");
+        System.out.print("\nSet the value \"name\" for this object: ");
     }
 
     private void createdObjMsg(){
