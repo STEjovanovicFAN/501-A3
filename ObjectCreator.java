@@ -16,9 +16,10 @@ public class ObjectCreator{
         listOfObjE = new ArrayList<ObjectE>();
     }
 
-    public boolean createObjectA(String name){
+    public boolean createObjectA(String value){
         try{
-            ObjectA a = new ObjectA(name);
+        	int num = Integer.parseInt(value);
+            ObjectA a = new ObjectA(num);
             listOfObjA.add(a);
             return true;
         }
@@ -63,8 +64,15 @@ public class ObjectCreator{
     }
 
     public boolean setObjectCValue(ObjectC c, int index, String value){
-        c.array[index] = value;
-        return true;
+        try{
+        	int num = Integer.parseInt(value);
+        	c.array[index] = num;
+            return true;
+        }
+
+        catch(Exception e){
+            return false;
+        }
     }
 
     public ObjectD createObjectD(String size){
@@ -95,9 +103,13 @@ public class ObjectCreator{
     }
 
     public boolean addObjectEValue(ObjectE e, String aObjectVal){
-        createObjectA(aObjectVal);
-        e.addObjectA(listOfObjA.get(listOfObjA.size()-1));
-        return true;
+        if(createObjectA(aObjectVal)) {
+        	e.addObjectA(listOfObjA.get(listOfObjA.size()-1));
+        	return true;
+        }
+        else {
+        	return false;
+        }
     }
 
 }

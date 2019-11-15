@@ -126,7 +126,7 @@ public class MenuSystem{
     }
 
     private void thirdOptionDisplayArrayValue(int index){
-        System.out.print("\nSet the array value at index " + index + ": ");
+        System.out.print("\nSet the array num value at index " + index + ": ");
     }
 
     private void secondOption(){
@@ -151,8 +151,8 @@ public class MenuSystem{
 
     private void firstOption(){
         firstOptionDisplay();
-        String name = input.nextLine();
-        if(oCreator.createObjectA(name)){
+        String value = input.nextLine();
+        if(oCreator.createObjectA(value)){
             createdObjMsg();
         }
         else{
@@ -161,7 +161,7 @@ public class MenuSystem{
     }
     
     private void firstOptionDisplay(){
-        System.out.print("\nSet the value \"name\" for this object: ");
+        System.out.print("\nSet the value \"num\" for this object: ");
     }
 
     private void createdObjMsg(){

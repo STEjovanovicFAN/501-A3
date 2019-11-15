@@ -1,11 +1,11 @@
 public class ObjectC{
-    public String [] array;
+    public int [] array;
 
     public ObjectC(int size){
-        array = new String [size];
+        array = new int [size];
     }
 
-    public void set(int index, String value){
+    public void set(int index, int value){
         array[index] = value;
     }
 }

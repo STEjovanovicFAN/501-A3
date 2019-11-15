@@ -1,10 +1,10 @@
 public class ObjectA{
-    public String name;
+    public int num;
 
     public ObjectA(){  
     }
 
-    public ObjectA(String name){
-        this.name = name;
+    public ObjectA(int num){
+        this.num = num;
     }
 }
