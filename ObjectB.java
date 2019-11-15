@@ -4,6 +4,7 @@ public class ObjectB{
     public ObjectB(){
 
     }
+    
     public ObjectB(ObjectB objB){
         this.objB = objB;
     }
