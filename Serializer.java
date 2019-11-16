@@ -143,12 +143,27 @@ public class Serializer{
     public Document getDoc() {
     	return doc;
     }
+    
+    public void setDoc(Document d) {
+    	doc = d;
+    }
 
     public void displaySerializedDoc(Serializer s) {
         try {
         	System.out.println("=======================");
  		    XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
  		    out.output(serializeEverything(), System.out);
+         }
+         catch (Exception e) {
+         	System.out.println(e);
+         }
+    }
+    
+    public void displayDoc() {
+        try {
+        	System.out.println("=======================");
+ 		    XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
+ 		    out.output(doc, System.out);
          }
          catch (Exception e) {
          	System.out.println(e);

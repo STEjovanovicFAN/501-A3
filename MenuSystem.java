@@ -171,4 +171,14 @@ public class MenuSystem{
     private void objErrorMsg(){
         System.out.println("Object was not successfully created...");
     }
+    
+    public String serverAddress() {
+        System.out.print("\nPlease input the server address: ");
+        String serverAddress = input.nextLine();
+        if(serverAddress.isEmpty()) {
+        	return "localhost";
+        }
+        
+    	return serverAddress;
+    }
 }

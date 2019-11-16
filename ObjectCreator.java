@@ -112,4 +112,8 @@ public class ObjectCreator{
         }
     }
 
+	public void setObjectBValue(ObjectB oB, ObjectB b) {
+		oB.objB = b;
+	}
+
 }
