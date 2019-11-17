@@ -95,6 +95,11 @@ public class ObjectCreator{
         d.array[index] = listOfObjA.get(listOfObjA.size() -1);
         return true;
     }
+    
+    public boolean setObjectDValue(ObjectD d, int index, ObjectA a){
+        d.array[index] = a;
+        return true;
+    }
 
     public ObjectE createObjectE(){
         ObjectE e = new ObjectE();
@@ -110,6 +115,11 @@ public class ObjectCreator{
         else {
         	return false;
         }
+    }
+    
+    public boolean addObjectEValue(ObjectE e, ObjectA objectA){
+    	e.addObjectA(objectA);
+    	return true;
     }
 
 	public void setObjectBValue(ObjectB oB, ObjectB b) {

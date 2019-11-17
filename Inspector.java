@@ -2,7 +2,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.IdentityHashMap;
+import java.awt.List;
 import java.lang.reflect.Array;
 
 public class Inspector {
@@ -103,6 +106,10 @@ public class Inspector {
                     }
                     
                     else if(field.getType().isArray()){
+                    	if(Modifier.isTransient(field.getModifiers())) {
+                    		handelArrayField(field.getType(), field.get(obj), recursive, depth);
+                    	}
+                    	
                         handelArrayField(field.getType(), field.get(obj), recursive, depth);
                     }
 

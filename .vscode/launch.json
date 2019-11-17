@@ -4,7 +4,8 @@
             "type": "java",
             "name": "CodeLens (Launch) - Driver",
             "request": "launch",
-            "mainClass": "ClientDriver"
+            "mainClass": "ClientDriver",
+            "includePath":["C:/Users/Stefan/CPSC/jdom-2.0.6"]
         }
     ]
 }

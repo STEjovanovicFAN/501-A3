@@ -27,12 +27,12 @@ public class Deserializer{
     	List<Element> rootElement = doc.getRootElement().getChildren("object");
     	
     	for(int i = 0; i < rootElement.size(); i++) {
-    		identifyChild(rootElement.get(i));
+    		identifyChild(rootElement.get(i), rootElement);
     	}
     	
     }
     
-    private void identifyChild(Element child) {
+    private void identifyChild(Element child, List<Element> rootElement) {
     	String className = child.getAttributeValue("class");
     	if(className.equalsIgnoreCase("ObjectA")){
     		createA(child);
@@ -43,25 +43,77 @@ public class Deserializer{
     	}
     	
     	else if(className.equalsIgnoreCase("ObjectC")){
-    		createC(child);
+    		createC(child, rootElement);
     	}
     	
     	else if(className.equalsIgnoreCase("ObjectD")){
-    		
+    		createD(child, rootElement);
     	}
     	
     	else if(className.equalsIgnoreCase("ObjectE")){
-    		
+    		createE(child, rootElement);
     	}
 
     }
     
-    private void createC(Element child) {
+    private void createE(Element child, List<Element> rootElement) {
+    	Element field = child.getChild("field");
+    	Element reference = field.getChild("reference");
+    	String refVal = reference.getText();
+    	Element arrayChild = null; 
+    	for(int i = 0; i < rootElement.size(); i++) {
+    		if(rootElement.get(i).getAttributeValue("id").equals(refVal)) {
+    			arrayChild = rootElement.get(i);
+    		}
+    	}
     	
+    	ObjectE e = oCreator.createObjectE();
+    	
+    	List <Element> getChildrenRef = arrayChild.getChildren("reference");
+    	for(int i = 0; i < getChildrenRef.size(); i++) {
+    		oCreator.addObjectEValue(e, (ObjectA)findKey(getChildrenRef.get(i).getText()));
+    	}
+    }
+    
+    private void createD(Element child, List<Element> rootElement) {
+    	Element field = child.getChild("field");
+    	Element reference = field.getChild("reference");
+    	String refVal = reference.getText();
+    	Element arrayChild = null; 
+    	for(int i = 0; i < rootElement.size(); i++) {
+    		if(rootElement.get(i).getAttributeValue("id").equals(refVal)) {
+    			arrayChild = rootElement.get(i);
+    		}
+    	}
+    	
+    	ObjectD d = oCreator.createObjectD(arrayChild.getAttributeValue("length"));
+    	
+    	List <Element> getChildrenRef = arrayChild.getChildren("reference");
+    	for(int i = 0; i < getChildrenRef.size(); i++) {
+    		oCreator.setObjectDValue(d, i, (ObjectA)findKey(getChildrenRef.get(i).getText()));
+    	}
+    }
+    
+    private void createC(Element child, List<Element> rootElement) {
+    	Element field = child.getChild("field");
+    	Element reference = field.getChild("reference");
+    	String refVal = reference.getText();
+    	Element arrayChild = null; 
+    	for(int i = 0; i < rootElement.size(); i++) {
+    		if(rootElement.get(i).getAttributeValue("id").equals(refVal)) {
+    			arrayChild = rootElement.get(i);
+    		}
+    	}
+    	
+    	ObjectC c = oCreator.createObjectC(arrayChild.getAttributeValue("length"));
+    	
+    	List <Element> getChildrenValue = arrayChild.getChildren("value");
+    	for(int i = 0; i < getChildrenValue.size(); i++) {
+    		oCreator.setObjectCValue(c, i, getChildrenValue.get(i).getText());
+    	}
     }
     
     private void createB(Element child) {
-    	System.out.println("in B");
     	ObjectB b = oCreator.createObjectB();
     	idHashMap.put(b, Integer.toString(idHashMap.size()));
     	
@@ -73,20 +125,13 @@ public class Deserializer{
     	
     }
     
-    
     private void createA(Element child) {
     	Element field = child.getChild("field");
-    	//System.out.println(field.toString());
-    	
     	Element value = field.getChild("value");
-    	//System.out.println(value.toString());
-    	
-    	//System.out.println("printing value");
+   
     	String valueStr = value.getText();
     	oCreator.createObjectA(valueStr);
     	idHashMap.put(oCreator.listOfObjA.get(oCreator.listOfObjA.size()-1), Integer.toString(idHashMap.size()));
-    	
-    	//oCreator.createObjectA(((Element) child).getAttributeValue("value"));
     }
     
     private Object findKey(String keyVal) {
