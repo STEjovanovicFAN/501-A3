@@ -104,7 +104,7 @@ public class Serializer{
 			int length = Array.getLength(obj);
 			objectChild.setAttribute("length", Integer.toString(length));
 			for (int i=0; i<length; i++) {
-				objectChild.addContent(serializeVariable( componentType,Array.get(obj,i)));
+				objectChild.addContent(serializeVariable(componentType,Array.get(obj,i)));
 			}
     	}
     	 
@@ -121,7 +121,7 @@ public class Serializer{
     			reference.setText(idHashMap.get(child).toString());
     		}
     		else {
-    			reference.setText( Integer.toString(idHashMap.size()) );
+    			reference.setText(Integer.toString(idHashMap.size()));
     			serializeObject(child);
     		}
     		return reference;

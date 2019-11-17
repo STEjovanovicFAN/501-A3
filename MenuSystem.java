@@ -34,7 +34,7 @@ public class MenuSystem{
         "\nUser Input: ");
     }
 
-    private boolean checkQuit(String userInput){
+    public boolean checkQuit(String userInput){
         if(userInput.equalsIgnoreCase("s"))
             return true;
         else if(userInput.equalsIgnoreCase("q"))

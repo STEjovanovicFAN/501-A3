@@ -90,7 +90,9 @@ public class ObjectCreator{
     }
 
     public boolean setObjectDValue(ObjectD d, int index, String aObjectName){
-        createObjectA(aObjectName);
+        if(!createObjectA(aObjectName)) {
+        	return false;
+        }
 
         d.array[index] = listOfObjA.get(listOfObjA.size() -1);
         return true;
