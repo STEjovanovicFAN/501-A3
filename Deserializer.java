@@ -57,16 +57,7 @@ public class Deserializer{
     }
     
     private void createE(Element child, List<Element> rootElement) {
-    	Element field = child.getChild("field");
-    	Element reference = field.getChild("reference");
-    	String refVal = reference.getText();
-    	Element arrayChild = null; 
-    	for(int i = 0; i < rootElement.size(); i++) {
-    		if(rootElement.get(i).getAttributeValue("id").equals(refVal)) {
-    			arrayChild = rootElement.get(i);
-    		}
-    	}
-    	
+    	Element arrayChild = findReference(child, rootElement); 
     	ObjectE e = oCreator.createObjectE();
     	
     	List <Element> getChildrenRef = arrayChild.getChildren("reference");
@@ -76,16 +67,7 @@ public class Deserializer{
     }
     
     private void createD(Element child, List<Element> rootElement) {
-    	Element field = child.getChild("field");
-    	Element reference = field.getChild("reference");
-    	String refVal = reference.getText();
-    	Element arrayChild = null; 
-    	for(int i = 0; i < rootElement.size(); i++) {
-    		if(rootElement.get(i).getAttributeValue("id").equals(refVal)) {
-    			arrayChild = rootElement.get(i);
-    		}
-    	}
-    	
+    	Element arrayChild = findReference(child, rootElement); 
     	ObjectD d = oCreator.createObjectD(arrayChild.getAttributeValue("length"));
     	
     	List <Element> getChildrenRef = arrayChild.getChildren("reference");
@@ -95,16 +77,7 @@ public class Deserializer{
     }
     
     private void createC(Element child, List<Element> rootElement) {
-    	Element field = child.getChild("field");
-    	Element reference = field.getChild("reference");
-    	String refVal = reference.getText();
-    	Element arrayChild = null; 
-    	for(int i = 0; i < rootElement.size(); i++) {
-    		if(rootElement.get(i).getAttributeValue("id").equals(refVal)) {
-    			arrayChild = rootElement.get(i);
-    		}
-    	}
-    	
+    	Element arrayChild = findReference(child, rootElement); 
     	ObjectC c = oCreator.createObjectC(arrayChild.getAttributeValue("length"));
     	
     	List <Element> getChildrenValue = arrayChild.getChildren("value");
@@ -144,6 +117,19 @@ public class Deserializer{
     	    }
     	}
     	return null;
+    }
+    
+    private Element findReference(Element child, List<Element> rootElement) {
+    	Element field = child.getChild("field");
+    	Element reference = field.getChild("reference");
+    	String refVal = reference.getText();
+    	Element arrayChild = null; 
+    	for(int i = 0; i < rootElement.size(); i++) {
+    		if(rootElement.get(i).getAttributeValue("id").equals(refVal)) {
+    			arrayChild = rootElement.get(i);
+    		}
+    	}
+    	return arrayChild;
     }
 }
 

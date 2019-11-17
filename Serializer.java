@@ -50,10 +50,10 @@ public class Serializer{
 		idHashMap.put(obj, id);
 		Class sourceclass = obj.getClass();
     	
-		Element oElt = new Element("object");
-		oElt.setAttribute( "class", sourceclass.getName() );
-		oElt.setAttribute( "id", id );
-		doc.getRootElement().addContent(oElt);
+		Element objectChild = new Element("object");
+		objectChild.setAttribute( "class", sourceclass.getName() );
+		objectChild.setAttribute( "id", id );
+		doc.getRootElement().addContent(objectChild);
 		
 		if(Collection.class.isAssignableFrom(sourceclass)) {
 			
@@ -63,13 +63,13 @@ public class Serializer{
 			alist = new ArrayList<>((Collection<?>)obj);
 			
 			int length = alist.size();
-			oElt.setAttribute( "length", Integer.toString(length) );
+			objectChild.setAttribute( "length", Integer.toString(length) );
 			
 			for (int i=0; i< alist.size(); i++) {
 				Element reference = new Element("reference");
 				Object objVal = alist.get(i);
 				String hashMapVal = idHashMap.get(objVal); 
-				oElt.addContent(reference.setText(hashMapVal));
+				objectChild.addContent(reference.setText(hashMapVal));
 
 				//oElt.addContent(reference.setText(idHashMap.get(String.valueOf(alist.get(i)).toString())));
 				//oElt.addContent(serializeVariable(componentType,Array.get(obj,i)));
@@ -86,10 +86,10 @@ public class Serializer{
 				
 				fields[i].setAccessible(true);
 				
-				Element fElt = new Element("field");
-				fElt.setAttribute("name", fields[i].getName());
+				Element field = new Element("field");
+				field.setAttribute("name", fields[i].getName());
 				Class declClass = fields[i].getDeclaringClass();
-				fElt.setAttribute("declaringclass", declClass.getName());
+				field.setAttribute("declaringclass", declClass.getName());
 		
 				Class fieldtype = fields[i].getType();
 				Object child = fields[i].get(obj);
@@ -97,9 +97,9 @@ public class Serializer{
 				if (Modifier.isTransient(fields[i].getModifiers())){
 					child = null;
 				}
-				fElt.addContent( serializeVariable( fieldtype, child));
+				field.addContent( serializeVariable( fieldtype, child));
 		
-				oElt.addContent(fElt);
+				objectChild.addContent(field);
 			}
 		}
 		
@@ -107,9 +107,9 @@ public class Serializer{
 			Class componentType = sourceclass.getComponentType();
 		
 			int length = Array.getLength(obj);
-			oElt.setAttribute( "length", Integer.toString(length) );
+			objectChild.setAttribute( "length", Integer.toString(length) );
 			for (int i=0; i<length; i++) {
-				oElt.addContent( serializeVariable( componentType,Array.get(obj,i)));
+				objectChild.addContent( serializeVariable( componentType,Array.get(obj,i)));
 			}
     	}
     	 
