@@ -18,50 +18,13 @@ import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 public class ServerDriver{
     public static void main(String[] args) throws Exception {
-        ObjectCreator oCreator = new ObjectCreator();
-        
-        SAXBuilder builder = new SAXBuilder();
-        //DocumentBuilderFactory buildFactory = DocumentBuilderFactory.newInstance();  
-        //DocumentBuilder builder = buildFactory.newDocumentBuilder();
-        //org.w3c.dom.Document doc = null;        
+        ObjectCreator oCreator = new ObjectCreator();   
         
         Serializer s = new Serializer(oCreator);
-        //s.displaySerializedDoc(s);
-       
-        //send with byte stream to server
-        //String serverAddress = menu.serverAddress();
-        try {
-        	ServerSocket serverSocket = new ServerSocket(7777);
-        	Socket socket = serverSocket.accept();
-        	
-        	DataInputStream dataIn = new DataInputStream(socket.getInputStream());
-        	
-            Document doc = builder.build(dataIn);
-            s.setDoc(doc);
-            s.displayDoc();
-        	/*
-            int i = dataIn.readInt(); 
-            byte[] data = new byte[i];
-            dataIn.read(data, 0, i); 
-            
-            doc = builder.build(dataIn);
-            */
-        	/*
-        	int size = dataIn.readInt();
-        	byte[] xml = new byte[size];
-        	dataIn.read(xml, 0, size);
-        	
-        	Document doc = (Document) builder.parse(new ByteArrayInputStream(xml));
-        	
-        	*/
-        	//System.out.println(doc);
-        	//s.displayDoc();
-        	
-        	socket.close();
-        }
-        catch(IOException e) {
-        	System.out.println(e);
-        }
+        
+        ServerSock serverS = new ServerSock();
+        s.setDoc(serverS.getDoc());
+        s.displayDoc();
         
         Deserializer des = new Deserializer(oCreator, s.getDoc());
         des.deserializeEverything();
