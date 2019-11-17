@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.IdentityHashMap;
+import java.util.List;
 
 import org.jdom2.*;
 import org.jdom2.output.Format;
@@ -51,15 +52,15 @@ public class Serializer{
 		Class sourceclass = obj.getClass();
     	
 		Element objectChild = new Element("object");
-		objectChild.setAttribute( "class", sourceclass.getName() );
-		objectChild.setAttribute( "id", id );
+		objectChild.setAttribute("class", sourceclass.getName());
+		objectChild.setAttribute("id", id);
 		doc.getRootElement().addContent(objectChild);
 		
 		if(Collection.class.isAssignableFrom(sourceclass)) {
 			
 			Class componentType = sourceclass.getComponentType();
 			
-			ArrayList alist = new ArrayList<>();
+			List alist = new ArrayList<>();
 			alist = new ArrayList<>((Collection<?>)obj);
 			
 			int length = alist.size();
@@ -70,12 +71,6 @@ public class Serializer{
 				Object objVal = alist.get(i);
 				String hashMapVal = idHashMap.get(objVal); 
 				objectChild.addContent(reference.setText(hashMapVal));
-
-				//oElt.addContent(reference.setText(idHashMap.get(String.valueOf(alist.get(i)).toString())));
-				//oElt.addContent(serializeVariable(componentType,Array.get(obj,i)));
-
-				//reference.setText(idHashMap.get(alist.get(i)).toString());
-				//oElt.addContent( "" + alist.get(i));
 			}
 			
 		}
@@ -107,16 +102,15 @@ public class Serializer{
 			Class componentType = sourceclass.getComponentType();
 		
 			int length = Array.getLength(obj);
-			objectChild.setAttribute( "length", Integer.toString(length) );
+			objectChild.setAttribute("length", Integer.toString(length));
 			for (int i=0; i<length; i++) {
-				objectChild.addContent( serializeVariable( componentType,Array.get(obj,i)));
+				objectChild.addContent(serializeVariable( componentType,Array.get(obj,i)));
 			}
     	}
     	 
     }
     
     private Element serializeVariable(Class fieldtype, Object child) throws Exception{
-    	//System.out.println(fieldtype.getTypeName());
     	if (child == null) {
     		return new Element("null");
     	}
